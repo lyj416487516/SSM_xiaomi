@@ -1,7 +1,5 @@
 package org.example.chapter02.javaconfig;
 
-import org.junit.Test;
-
 public class CDPlayer {
 
     private CompactDisc compactDisc;
