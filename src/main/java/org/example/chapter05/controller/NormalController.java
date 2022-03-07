@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class NormalController {
-    @Autowired
+    @Autowired(required=false)
     private DemoService demoService;
 
     @RequestMapping("/normal")

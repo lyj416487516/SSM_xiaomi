@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MyRestController {
-    @Autowired
+    @Autowired(required = false)
     private DemoService demoService;
 
     @RequestMapping(value = "/testRest", produces = "text/plain;charset=UTF-8")
