@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.shopping.mapper.AddressMapper">
+
+    <resultMap id="addressMap" type="org.example.shopping.bean.Address">
+        <id property="id" column="id"/>
+        <result property="name" column="Name"/>
+        <result property="parentId" column="ParentId"/>
+        <result property="shortName" column="ShortName"/>
+        <result property="levelType" column="LevelType"/>
+        <result property="cityCode" column="CityCode"/>
+        <result property="zipCode" column="ZipCode"/>
+        <result property="mergerName" column="MergerName"/>
+        <result property="ing" column="Ing"/>
+        <result property="lat" column="Lat"/>
+        <result property="pinYin" column="PinYin"/>
+    </resultMap>
+
+    <select id="selectProvinceAll" resultMap="addressMap">
+        SELECT * FROM address WHERE LevelType = 1
+    </select>
+
+    <select id="selectCityByPid" resultMap="addressMap">
+        SELECT * FROM address WHERE ParentId = #{pid} AND LevelType = 2
+    </select>
+
+    <select id="selectAreaByCid" resultMap="addressMap">
+        SELECT * FROM address WHERE ParentId = #{cid} AND LevelType = 3
+    </select>
+
+    <select id="selectAddressByStr" resultMap="addressMap">
+        SELECT * FROM address WHERE FIND_IN_SET (id, #{id})
+    </select>
+
+</mapper>

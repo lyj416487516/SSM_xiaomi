@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.shopping.mapper.OrderMapper">
+
+    <resultMap id="orderMap" type="org.example.shopping.bean.Order">
+        <id property="id" column="id"/>
+        <result property="uid" column="u_id"/>
+        <result property="sid" column="s_id"/>
+        <result property="totalPrice" column="total_price"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="state" column="state"/>
+        <result property="name" column="name"/>
+        <result property="tel" column="tel"/>
+        <result property="address" column="address"/>
+        <result property="createTime" column="createtime"/>
+    </resultMap>
+
+    <insert id="insertOrder">
+        INSERT INTO order_details
+            (u_id, s_id, total_price, order_number, state, name, tel, address, createtime)
+        VALUES
+            (#{uid}, #{sid}, #{totalPrice}, #{orderNumber}, #{state}, #{name}, #{tel}, #{address}, #{createTime})
+    </insert>
+
+    <select id="selectOrderByUid" resultMap="orderMap">
+        SELECT * FROM order_details WHERE u_id = #{uid}
+    </select>
+
+    <select id="findOrderById" resultMap="orderMap">
+        SELECT * FROM order_details WHERE id = #{id}
+    </select>
+
+    <select id="findOrderByOrderNumber" resultMap="orderMap">
+        SELECT * FROM order_details WHERE id = #{id} AND state = 0
+    </select>
+
+    <update id="updateOrderState">
+        update order_details SET state = #{state} where id = #{id}
+    </update>
+
+</mapper>

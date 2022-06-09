@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="spring-test-5.3.9">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../Library/spring-framework-5.3.9/libs/spring-test-5.3.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

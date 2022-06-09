@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.shopping.mapper.StockMapper">
+    <resultMap id="stockMap" type="org.example.shopping.bean.Stock">
+        <id property="id" column="id"/>
+        <result property="did" column="d_id"/>
+        <result property="eid" column="e_id"/>
+        <result property="stock" column="stock"/>
+    </resultMap>
+
+    <select id="selectStockByEid" resultType="java.lang.Integer">
+        SELECT stock FROM stock WHERE d_id = #{did} AND e_id = #{eid}
+    </select>
+
+    <select id="selectIdByEid" resultType="long">
+        SELECT id FROM stock WHERE d_id = #{did} AND e_id = #{eid}
+    </select>
+
+    <select id="stockById" resultType="java.lang.Integer">
+        SELECT stock FROM stock WHERE id = #{sid}
+    </select>
+
+</mapper>

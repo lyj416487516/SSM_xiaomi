@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.shopping.mapper.ReceivingMapper">
+
+    <resultMap id="receivingMap" type="org.example.shopping.bean.Receiving">
+        <id property="id" column="id"/>
+        <result property="uid" column="u_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="phone" column="phone"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="area" column="area"/>
+        <result property="detailed" column="detailed"/>
+        <result property="zipcode" column="zipcode"/>
+        <result property="label" column="label"/>
+    </resultMap>
+
+    <select id="selectReceivingByUid" resultMap="receivingMap">
+        SELECT * FROM receivingaddress WHERE u_id = #{uid}
+    </select>
+
+    <insert id="addReceivingAddress">
+        INSERT INTO receivingaddress
+            (u_id, nickname, phone, province, city, area, detailed, zipcode, label)
+        VALUES
+            (#{uid}, #{nickname}, #{phone}, #{province}, #{city}, #{area}, #{detailed}, #{zipcode}, #{label})
+    </insert>
+
+    <update id="editReceivingAddress">
+        UPDATE receivingaddress SET
+            u_id=#{receiving.uid},
+            nickname=#{receiving.nickname},
+            phone=#{receiving.phone},
+            province=#{receiving.province},
+            city=#{receiving.city},
+            area=#{receiving.area},
+            detailed=#{receiving.detailed},
+            zipcode=#{receiving.zipcode},
+            label=#{receiving.label}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteReceivingAddress">
+        DELETE FROM receivingaddress WHERE id = #{id}
+    </delete>
+
+</mapper>
