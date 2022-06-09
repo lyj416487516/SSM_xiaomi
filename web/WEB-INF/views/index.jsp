@@ -5,6 +5,6 @@
 </head>
 <body>
 <h1>测试</h1>
-<h1>${message}</h1>
+<h1>${user.getUserName()}</h1>
 </body>
 </html>
