@@ -1,9 +1,6 @@
 package org.example.shopping.service;
 
-import org.example.shopping.bean.InitShop;
-import org.example.shopping.bean.ShopCart;
-import org.example.shopping.bean.Shops;
-import org.example.shopping.bean.Specification;
+import org.example.shopping.bean.*;
 
 import java.util.List;
 
@@ -24,5 +21,7 @@ public interface ShopService {
     Long selectIdByEid(Long did, String eid);
 
     int insertShopCart(ShopCart shopCart);
+
+    List<Classify> findClassify();
 
 }

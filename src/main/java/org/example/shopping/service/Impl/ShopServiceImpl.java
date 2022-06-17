@@ -1,9 +1,6 @@
 package org.example.shopping.service.Impl;
 
-import org.example.shopping.bean.InitShop;
-import org.example.shopping.bean.ShopCart;
-import org.example.shopping.bean.Shops;
-import org.example.shopping.bean.Specification;
+import org.example.shopping.bean.*;
 import org.example.shopping.dao.ShopDao;
 import org.example.shopping.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,5 +69,10 @@ public class ShopServiceImpl implements ShopService {
             result = shopDao.insertShopCart(shopCart);
         }
         return result;
+    }
+
+    @Override
+    public List<Classify> findClassify() {
+        return shopDao.findClassify();
     }
 }

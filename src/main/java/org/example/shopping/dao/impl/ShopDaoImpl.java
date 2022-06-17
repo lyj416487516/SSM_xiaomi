@@ -1,14 +1,8 @@
 package org.example.shopping.dao.impl;
 
-import org.example.shopping.bean.InitShop;
-import org.example.shopping.bean.ShopCart;
-import org.example.shopping.bean.Shops;
-import org.example.shopping.bean.Specification;
+import org.example.shopping.bean.*;
 import org.example.shopping.dao.ShopDao;
-import org.example.shopping.mapper.ShopCartMapper;
-import org.example.shopping.mapper.ShopMapper;
-import org.example.shopping.mapper.SpecificationMapper;
-import org.example.shopping.mapper.StockMapper;
+import org.example.shopping.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,13 +15,15 @@ public class ShopDaoImpl implements ShopDao {
     private final SpecificationMapper specificationMapper;
     private final StockMapper stockMapper;
     private final ShopCartMapper shopCartMapper;
+    private final ClassifyMapper classifyMapper;
 
     @Autowired
-    public ShopDaoImpl(ShopMapper shopMapper, SpecificationMapper specificationMapper, StockMapper stockMapper, ShopCartMapper shopCartMapper) {
+    public ShopDaoImpl(ShopMapper shopMapper, SpecificationMapper specificationMapper, StockMapper stockMapper, ShopCartMapper shopCartMapper, ClassifyMapper classifyMapper) {
         this.shopMapper = shopMapper;
         this.specificationMapper = specificationMapper;
         this.stockMapper = stockMapper;
         this.shopCartMapper = shopCartMapper;
+        this.classifyMapper = classifyMapper;
     }
 
     @Override
@@ -78,5 +74,10 @@ public class ShopDaoImpl implements ShopDao {
     @Override
     public int incShopCartNumber(Float price, int num, Long id) {
         return shopCartMapper.incShopCartNumber(price, num, id);
+    }
+
+    @Override
+    public List<Classify> findClassify() {
+        return classifyMapper.findClassify();
     }
 }

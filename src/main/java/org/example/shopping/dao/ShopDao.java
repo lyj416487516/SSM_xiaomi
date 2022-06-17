@@ -1,9 +1,6 @@
 package org.example.shopping.dao;
 
-import org.example.shopping.bean.InitShop;
-import org.example.shopping.bean.ShopCart;
-import org.example.shopping.bean.Shops;
-import org.example.shopping.bean.Specification;
+import org.example.shopping.bean.*;
 
 import java.util.List;
 
@@ -28,5 +25,7 @@ public interface ShopDao {
     ShopCart isSetShopCart(String username, Long did, Long eid, Long cid, Integer state);
 
     int incShopCartNumber(Float price,int num, Long id);
+
+    List<Classify> findClassify();
 
 }

@@ -42,8 +42,10 @@ public class ShopController {
             model.addAttribute(username);
         }
 
-        List<Shops> shopList = shopService.selectShopList(1, 0, 10);
+        List<Shops> shopList = shopService.selectShopList(cid, 0, 10);
+        List<Classify> classifyList = shopService.findClassify();
         model.addAttribute("shopList", shopList);
+        model.addAttribute("classifyList", classifyList);
         model.addAttribute("cid", cid);
 
         return "/shop/index";
