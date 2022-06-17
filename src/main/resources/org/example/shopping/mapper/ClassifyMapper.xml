@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.example.shopping.mapper.ClassifyMapper">
 
-    <resultMap id="classifyMap" type="Classify">
+    <resultMap id="classifyMap" type="classify">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="order" column="order"/>
@@ -21,6 +21,12 @@
         SELECT
             <include refid="field"/>
         FROM classify WHERE enable = 1 ORDER BY sort ASC
+    </select>
+
+    <select id="findClassify" resultType="classify">
+        SELECT
+        <include refid="field"/>
+        FROM classify WHERE enable = 1
     </select>
 
 </mapper>

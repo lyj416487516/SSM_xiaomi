@@ -15,7 +15,7 @@ public interface ShopMapper {
      * 查询所有商品
      * @return
      */
-    List<Shops> selectAllShop();
+    List<Shops> selectAllShop(String name);
 
     /**
      * 商品列表
@@ -41,5 +41,19 @@ public interface ShopMapper {
      * @return
      */
     InitShop initShopAndEdCr(@Param("did") int did, @Param("eid") int eid, @Param("cid") int cid);
+
+    /**
+     * 添加商品
+     * @param shop
+     * @return
+     */
+    Integer save(Shops shop);
+
+    /**
+     * 修改商品
+     * @param shops
+     * @return
+     */
+    Integer update(Shops shops);
 
 }

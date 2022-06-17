@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -5,7 +6,7 @@
   <meta charset="utf-8" />
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1">
-  <title>SchoolCMS后台管理系统</title>
+  <title>CMS后台管理系统</title>
   <link rel="stylesheet" type="text/css" href="/css/admin/bootstrap-3/css/bootstrap.css" />
   <link rel="stylesheet" type="text/css" href="/css/admin/assets/css/amazeui.css" />
   <link rel="stylesheet" type="text/css" href="/css/admin/amazeui-switch/amazeui.switch.css" />
@@ -20,13 +21,16 @@
 <div class="content-right">
   <div class="content">
     <!-- form start -->
-    <form class="am-form view-list" action="{:url('index')}" method="POST">
+    <form class="am-form view-list" action="/commodity/index/1" method="GET">
       <div class="am-g">
-        {if empty($keyword)}
-        <input type="text" class="am-radius form-keyword" placeholder="商品名" name="keyword"  />
-        {else /}
-        <input type="text" value="{$keyword}" class="am-radius form-keyword" placeholder="商品名" name="keyword"  />
-        {/if}
+        <c:choose>
+          <c:when test="${keyword == ''}">
+            <input type="text" class="am-radius form-keyword" placeholder="商品名" name="keyword"  />
+          </c:when>
+          <c:otherwise>
+            <input type="text" value="${keyword}" class="am-radius form-keyword" placeholder="商品名" name="keyword"  />
+          </c:otherwise>
+        </c:choose>
         <button type="submit" class="am-btn am-btn-secondary am-btn-sm am-radius form-submit">查询</button>
         <label class="fs-12 m-l-5 c-p fw-100 more-submit">
           更多筛选
@@ -47,50 +51,15 @@
 
     <!-- operation start -->
     <div class="am-g m-t-15">
-      <a href="{:url('SaveInfo')}" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> 新增</a>
-      <a href="/admin.php?m=Admin&c=Student&a=ExcelExport" class="am-btn am-btn-success am-btn-xs m-l-10 am-icon-file-excel-o am-radius"> 导出Excel</a>
-      <a href="javascript:;" class="am-btn am-btn-primary am-btn-xs m-l-10 am-icon-cloud-upload am-radius" data-am-modal="{target: '#excel-import-win'}"> 导入Excel</a>
-      <!-- excel win html start -->
-      <div class="am-popup am-radius" id="excel-import-win">
-        <div class="am-popup-inner">
-          <div class="am-popup-hd">
-            <h4 class="am-popup-title">导入Excel</h4>
-            <span data-am-modal-close class="am-close">&times;</span>
-          </div>
-          <div class="am-popup-bd">
-            <!-- win form start -->
-            <form class="am-form form-validation excel-form" action="/admin.php?m=Admin&c=Student&a=ExcelImport" method="POST" request-type="ajax-fun" request-value="ExcelImportCallback" enctype="multipart/form-data">
-              <input type="hidden" name="max_file_size" value="51200000" />
-              <div class="am-alert am-radius am-alert-tips m-t-0" data-am-alert>
-                <p class="m-b-0"><a href="/admin.php?m=Admin&c=Student&a=ExcelExport&type=format_download" class="cr-blue">Excel格式下载</a><span class="m-r-5"></p>					<p class="m-t-10">1、学生编号由系统自动生成，已存在以往学期中的学生将使用原来的编号。<br />2、报名时间选填项，留空则使用当前导入时间。<br />3、班级二级归类使用[ - ]字符分割。<br />4、所有数据字段以文本格式上传，如[ 身份证号码|电话|报名时间 ]</p>					<p class="cr-red">PS：导入数据建议一次不要超过10万条。</p>
-              </div>
-              <div class="am-form-group am-form-file">
-                <button type="button" class="am-btn am-btn-default am-btn-sm am-radius"><i class="am-icon-cloud-upload"></i> 选择文件</button>
-                <input type="file" name="excel" multiple data-validation-message="请选择需要上传的文件" accept="application/vnd.ms-excel" required />
-              </div>
-              <div class="am-form-group">
-                <button type="submit" class="am-btn am-btn-primary am-radius btn-loading-example am-btn-sm w100" data-am-loading="{loadingText:'处理中...'}">确认</button>
-              </div>
-            </form>
-            <!-- win form end -->
-
-            <!-- import tips start -->
-            <div class="am-alert am-alert-success am-radius excel-import-success none">导入成功 <strong>0</strong> 条</div>
-            <div class="am-panel am-panel-danger am-radius excel-import-error none">
-              <div class="am-panel-hd p-l-10">导入失败 <strong>0</strong>  条</div>
-              <table class="am-table"><tbody></tbody></table>
-            </div>
-            <!-- import tips end -->
-          </div>
-        </div>
-      </div>
-      <!-- excel win html end -->        </div>
+      <a href="/commodity/save_info" class="am-btn am-btn-secondary am-radius am-btn-xs am-icon-plus"> 新增</a>
+    </div>
     <!-- operation end -->
 
     <!-- list start -->
     <table class="am-table am-table-striped am-table-hover am-text-middle m-t-10 m-l-5">
       <thead>
       <tr>
+        <th>商品id</th>
         <th>商品名称</th>
         <th class="am-hide-sm-only"></th>
         <th>图片</th>
@@ -101,24 +70,25 @@
       </tr>
       </thead>
       <tbody>
-      {foreach $details as $ds}
+      <c:forEach items="${pageInfo.list}" var="splist">
       <tr id="data-list-57-522228199102111999">
-        <td>{$ds.name}</td>
+        <td>${splist.id}</td>
+        <td>${splist.name}</td>
         <td class="am-hide-sm-only"></td>
-        <td><img style="width: 30px;height: 30px;" src="__PUBLIC__/image/{$ds.image}">{$ds.image}</td>
+        <td><img style="width: 30px;height: 30px;" src="/image/${splist.image}"></td>
         <td class="am-hide-sm-only"></td>
         <td class="am-hide-sm-only"></td>
         <td>
-          <span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup57'}"> 查看更多</span>
-          <div class="am-popup am-radius" id="my-popup57">
+          <span class="am-icon-caret-down c-p" data-am-modal="{target: '#my-popup${splist.id}'}"> 查看更多</span>
+          <div class="am-popup am-radius" id="my-popup${splist.id}">
             <div class="am-popup-inner">
               <div class="am-popup-hd">
                 <h4 class="am-popup-title">商品简介</h4>
                 <span data-am-modal-close class="am-close">&times;</span>
               </div>
               <div class="am-popup-bd">
-											<textarea rows="" cols="190px" disabled >
-												{$ds.description}
+											<textarea rows="40px" cols="90px" disabled >
+												${splist.description}
 											</textarea>
               </div>
             </div>
@@ -128,35 +98,53 @@
           <!-- <a href="{:url('')}">
               <button class="am-btn am-btn-default am-btn-xs am-radius am-icon-line-chart" data-am-popover="{content: '录成绩', trigger: 'hover focus'}"></button>
           </a> -->
-          <a href="{:url('Save',array('id'=>$ds.d_id))}">
+          <a href="/commodity/save/${splist.id}">
             <button class="am-btn am-btn-default am-btn-xs am-radius am-icon-edit" data-am-popover="{content: '编辑', trigger: 'hover focus'}"></button>
           </a>
-          <a href="{:url('delete',array('id'=>$ds.d_id))}">
+          <a href="/commodity/delete/${splist.id}">
             <button class="am-btn am-btn-default am-btn-xs am-radius am-icon-trash-o" onclick="if(confirm('确认删除？')==false)return false;" data-url="/admin.php?m=Admin&c=Student&a=Delete" data-am-popover="{content: '删除', trigger: 'hover focus'}" data-id=""></button>
           </a>
         </td>
       </tr>
-      {/foreach}
+      </c:forEach>
       </tbody>
     </table>
     <!-- list end -->
 
     <!-- page start -->
     <ul class="am-pagination am-pagination-centered">
-      <!-- <li class="am-disabled">
-          <a href="/admin.php?m=Admin&c=Student&a=Index&page=0" class="am-radius">&laquo;</a>
-      </li>
+      <c:choose>
+        <c:when test="${pageInfo.pageNum != 1}">
+          <li> <!--class="am-disabled"-->
+            <a href="/commodity/index/1" class="am-radius">首页</a>
+          </li>
+          <li>
+            <a href="/commodity/index/${pageInfo.pageNum-1}" class="am-radius">&laquo;</a>
+          </li>
+        </c:when>
+      </c:choose>
+
       <li class="am-active">
-          <a class="am-radius">1</a>
+          <a class="am-radius">${pageInfo.pageNum}</a>
       </li>
-      <li>
-          <a href="/admin.php?m=Admin&c=Student&a=Index&page=2" class="am-radius">2</a>
-      </li>
-      <li>
-          <a href="/admin.php?m=Admin&c=Student&a=Index&page=2" class="am-radius">&raquo;</a>
-      </li> -->
-      {$details->render()}
+<%--      <li>--%>
+<%--        <a href="/commodity/index" class="am-radius">${pageInfo.navigatepageNums}</a>--%>
+<%--      </li>--%>
+
+      <c:choose>
+        <c:when test="${pageInfo.pageNum != pageInfo.pages}">
+          <li>
+            <a href="/commodity/index/${pageInfo.pageNum+1}" class="am-radius">&raquo;</a>
+          </li>
+          <li>
+            <a href="/commodity/index/${pageInfo.pages}" class="am-radius">末页</a>
+          </li>
+        </c:when>
+      </c:choose>
     </ul>
+    <div class="col-md-6" style="width: 100%;text-align: center;">
+      第${pageInfo.pageNum}页，共${pageInfo.pages}页，共${pageInfo.total}条记录
+    </div>
     <!-- page end -->
   </div>
 </div>

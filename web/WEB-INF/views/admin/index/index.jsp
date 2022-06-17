@@ -87,7 +87,7 @@
         </li>
         <ul class="am-list am-collapse admin-sidebar-sub" id="power-menu-2">
           <li>
-            <a href="javascript:;" data-type="menu" data-url="/commodity/index">商品列表</a>
+            <a href="javascript:;" data-type="menu" data-url="/commodity/index/1">商品列表</a>
           </li>
           <li>
             <a href="javascript:;" data-type="menu" data-url="{:url('description/index')}">规格列表</a>

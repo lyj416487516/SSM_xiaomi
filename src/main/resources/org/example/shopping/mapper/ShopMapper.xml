@@ -8,6 +8,9 @@
         <result property="name" column="name"/>
         <result property="description" column="description"/>
         <result property="image" column="image"/>
+        <result property="edition" column="edition"/>
+        <result property="color" column="color"/>
+        <result property="money" column="money"/>
     </resultMap>
     <resultMap id="detailSpecification" type="org.example.shopping.bean.InitShop">
         <result property="dname" column="dname"/>
@@ -17,10 +20,6 @@
         <result property="cname" column="cname"/>
         <result property="price" column="price"/>
     </resultMap>
-
-    <select id="selectAllShop" resultMap="shopDetails">
-        SELECT * FROM details
-    </select>
 
     <select id="selectShopList" resultMap="shopDetails">
         SELECT * FROM details WHERE c_id = #{cid} LIMIT #{s}, #{e}
@@ -42,5 +41,24 @@
     <select id="findAllByCid" resultMap="shopDetails">
         SELECT * FROM details WHERE c_id = #{c_id} LIMIT 0,24
     </select>
-    
+
+    <select id="selectAllShop" resultMap="shopDetails">
+        SELECT * FROM details WHERE 1 = 1
+        <if test="name!=null and name != ''">
+            AND name like concat('%',#{name,jdbcType=VARCHAR},'%')
+        </if>
+
+    </select>
+
+    <insert id="save" parameterType="shops">
+        INSERT INTO details (c_id, name, description, image, money)
+        VALUE (#{cid}, #{name}, #{description}, #{image}, #{money})
+    </insert>
+
+    <update id="update" parameterType="shops">
+        UPDATE details SET
+           c_id = #{cid}, name = #{name}, description = #{description}, image = #{image}
+        WHERE d_id = #{id}
+    </update>
+
 </mapper>

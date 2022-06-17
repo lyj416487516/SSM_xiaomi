@@ -12,4 +12,9 @@ public class AdminController {
         return "/admin/index/index";
     }
 
+    @RequestMapping("home")
+    public String home() {
+        return "/admin/index/home";
+    }
+
 }
