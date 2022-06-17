@@ -196,7 +196,7 @@ public class ShopCartController {
         order.setOrderNumber(order_number);
         int result = shopCartService.insertOrder(order);
         int state = shopCartService.updateScState(s_id);
-        if (result == 1 && state == 2) {
+        if (result == 1 && state >= 1) {
             commonResult = new CommonResult(1, "下单成功", null);
         } else {
             commonResult = new CommonResult(0, "未知错误", null);
