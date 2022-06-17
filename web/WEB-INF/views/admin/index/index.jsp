@@ -113,7 +113,7 @@
   <!-- left menu end -->
 
   <!-- right content start  -->
-  <iframe id="ifcontent" src="{:url('home')}"></iframe>
+  <iframe id="ifcontent" src="/admin/home"></iframe>
   <!-- right content end  -->
 </div>
 <!-- content end -->
